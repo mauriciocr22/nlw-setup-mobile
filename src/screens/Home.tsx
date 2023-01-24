@@ -1,10 +1,33 @@
-import { View } from "react-native";
+import { View, Text } from "react-native";
+
+import { generateRangeDatesFromYearStart } from "../utils/generate-range-between-dates";
+
+import { HabitDay, daySize } from "../components/HabitDay";
 import { Header } from "../components/Header";
+
+const weekDays = ["D", "S", "T", "Q", "Q", "S", "S"];
+const datesFromYearStart = generateRangeDatesFromYearStart();
 
 export function Home() {
   return (
     <View className="flex-1 bg-background px-8 pt-16">
       <Header />
+      <View className="flex-row mt-6 mb-2">
+        {weekDays.map((weekDay, i) => (
+          <Text
+            key={`${weekDay}-${i}`}
+            className="text-zinc-400 text-xl font-bold mx-1 text-center"
+            style={{ width: daySize }}
+          >
+            {weekDay}
+          </Text>
+        ))}
+      </View>
+      <View className="flex-row flex-wrap">
+        {datesFromYearStart.map((date) => (
+          <HabitDay key={date.toISOString()} />
+        ))}
+      </View>
     </View>
   );
 }
