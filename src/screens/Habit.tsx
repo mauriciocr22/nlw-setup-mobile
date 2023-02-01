@@ -10,6 +10,7 @@ import { BackButton } from "../components/BackButton";
 import { ProgressBar } from "../components/ProgressBar";
 import { CheckBox } from "../components/CheckBox";
 import { Loading } from "../components/Loading";
+import { EmptyHabit } from "../components/EmptyHabit";
 
 interface Params {
   date: string;
@@ -81,7 +82,7 @@ export function Habit() {
         <Text className="text-white font-extrabold text-3xl">{dayAndMonth}</Text>
         <ProgressBar progress={habitsProgress} />
         <View className="mt-6">
-          {dayInfo?.possibleHabits &&
+          {dayInfo?.possibleHabits ? (
             dayInfo?.possibleHabits.map((habit) => (
               <CheckBox
                 key={habit.id}
@@ -89,7 +90,10 @@ export function Habit() {
                 checked={completedHabits.includes(habit.id)}
                 onPress={() => handleToggleHabit(habit.id)}
               />
-            ))}
+            ))
+          ) : (
+            <EmptyHabit />
+          )}
         </View>
       </ScrollView>
     </View>
